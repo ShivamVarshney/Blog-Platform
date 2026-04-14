@@ -119,7 +119,7 @@ const Signup = () => {
                             <div>
                                 <Label>Email</Label>
                                 <Input type="email"
-                                    placeholder="john.doe@example.com"
+                                    placeholder="your email"
                                     name="email"
                                     value={user.email}
                                     onChange={handleChange}
