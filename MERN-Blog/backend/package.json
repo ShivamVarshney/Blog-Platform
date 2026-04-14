@@ -4,14 +4,10 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-  "dev": "nodemon backend/server.js",
-  "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
-  "start": "node backend/server.js"
-},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+    "dev": "nodemon server.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "node server.js"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.9.0",
