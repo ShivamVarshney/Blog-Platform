@@ -29,27 +29,35 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(input);
+  e.preventDefault();
 
-    try {
-      const response = await axios.post(`${API_URL}/api/v1/user/login`, input, {
+  try {
+    const response = await axios.post(
+      `${API_URL}/api/v1/user/login`,
+      input,
+      {
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        withCredentials: true
-      });
-      if (response.data.success) {
-        navigate('/')
-        dispatch(setUser(response.data.user))
-        toast.success(response.data.message)
+        withCredentials: true,
       }
-    } catch (error) {
-      console.log(error.response.data.message);
+    );
 
+    if (response.data.success) {
+
+      // 🔥 ADD THIS LINE (IMPORTANT)
+      localStorage.setItem("token", response.data.token);
+
+      dispatch(setUser(response.data.user));
+      toast.success(response.data.message);
+      console.log("LOGIN RESPONSE:", response.data);
+      navigate("/");
     }
 
-  };
+  } catch (error) {
+    console.log(error.response?.data?.message);
+  }
+};
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="flex items-center h-screen md:pt-14 md:h-[760px] ">
