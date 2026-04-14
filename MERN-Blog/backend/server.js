@@ -35,16 +35,7 @@ app.use("/api/v1/user", userRoute);
 app.use("/api/v1/blog", blogRoute);
 app.use("/api/v1/comment", commentRoute);
 
-// ---------------- FRONTEND (PRODUCTION) ----------------
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-  app.get("*", (req, res) => {
-    res.sendFile(
-      path.join(__dirname, "../frontend/dist/index.html")
-    );
-  });
-}
 
 // ---------------- SERVER ----------------
 app.listen(PORT, async () => {
