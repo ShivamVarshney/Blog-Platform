@@ -20,7 +20,7 @@ import axios from 'axios'
 import { FaHeart, FaRegHeart } from 'react-icons/fa6'
 import { setBlog } from '@/redux/blogSlice'
 import { toast } from 'sonner'
-import API_URL from '../config/api'
+
 
 const BlogView = () => {
     const params = useParams()
