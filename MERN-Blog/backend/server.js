@@ -14,7 +14,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// 👉 __dirname fix for ES modules
+// __dirname fix (ES modules)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -23,9 +23,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// ✅ CORS FIX (IMPORTANT FOR DEPLOYMENT)
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://blogs-platform-jghf.onrender.com",
+    ],
     credentials: true,
   })
 );
@@ -35,10 +39,12 @@ app.use("/api/v1/user", userRoute);
 app.use("/api/v1/blog", blogRoute);
 app.use("/api/v1/comment", commentRoute);
 
-
-
 // ---------------- SERVER ----------------
 app.listen(PORT, async () => {
-  console.log(`✅ Server running on port ${PORT}`);
-  await connectDB();
+  try {
+    await connectDB();
+    console.log(`✅ Server running on port ${PORT}`);
+  } catch (error) {
+    console.log("❌ DB Connection Error:", error);
+  }
 });
