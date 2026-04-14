@@ -30,10 +30,7 @@ const corsOptions = {
 };
 
 // ---------------- MIDDLEWARE ----------------
-app.use(cors(corsOptions));
-
-// 🔥 IMPORTANT: preflight handling
-app.options("*", cors(corsOptions));
+app.use(cors(corsOptions)); // ✅ handles everything including OPTIONS
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -44,7 +41,7 @@ app.use("/api/v1/user", userRoute);
 app.use("/api/v1/blog", blogRoute);
 app.use("/api/v1/comment", commentRoute);
 
-// ---------------- SERVER ----------------
+// ---------------- SERVER START ----------------
 app.listen(PORT, async () => {
   try {
     await connectDB();
