@@ -14,25 +14,30 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// __dirname fix (ES modules)
+// ---------------- __dirname fix ----------------
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// ---------------- CORS CONFIG ----------------
+const corsOptions = {
+  origin: [
+    "http://localhost:5173",
+    "https://blogs-platform-jghf.onrender.com",
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
 // ---------------- MIDDLEWARE ----------------
+app.use(cors(corsOptions));
+
+// 🔥 IMPORTANT: preflight handling
+app.options("*", cors(corsOptions));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
-// ✅ CORS FIX (IMPORTANT FOR DEPLOYMENT)
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://blogs-platform-jghf.onrender.com",
-    ],
-    credentials: true,
-  })
-);
 
 // ---------------- API ROUTES ----------------
 app.use("/api/v1/user", userRoute);
