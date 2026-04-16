@@ -101,10 +101,17 @@ export const login = async (req, res) => {
             { expiresIn: "1d" }
         );
 
+        // ✅ COOKIE SET (MOST IMPORTANT)
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,        // Render = HTTPS
+            sameSite: "none",    // cross-origin allow
+            maxAge: 24 * 60 * 60 * 1000 // 1 day
+        });
+
         return res.status(200).json({
             success: true,
             message: `Welcome back ${user.firstName}`,
-            token:token,   // 🔥 IMPORTANT FIX
             user
         });
 

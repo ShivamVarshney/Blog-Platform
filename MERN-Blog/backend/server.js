@@ -22,7 +22,7 @@ const __dirname = path.dirname(__filename);
 const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "https://blogs-platform-jghf.onrender.com",
+    "https://blogss-platform.onrender.com",
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],

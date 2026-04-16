@@ -2,18 +2,17 @@ import jwt from "jsonwebtoken";
 
 export const isAuthenticated = (req, res, next) => {
     try {
-        const authHeader = req.headers.authorization;
+        // ✅ cookie se token lo
+        const token = req.cookies.token;
 
-        console.log("AUTH HEADER:", authHeader);
+        console.log("TOKEN:", token);
 
-        if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        if (!token) {
             return res.status(401).json({
                 message: "User not authenticated",
                 success: false,
             });
         }
-
-        const token = authHeader.split(" ")[1];
 
         const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
